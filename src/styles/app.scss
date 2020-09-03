@@ -1,0 +1,66 @@
+.app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .app-header {
+        background-color: #282c34;
+        height: 20px;
+    }
+
+    .header {
+        height: 64px;
+        border-top: 1px gray solid;
+        border-bottom: 1px gray solid;
+        padding: 0 16px;
+        
+        &.message-board-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .app-content-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+
+        .workspace-nav-content-wrapper {
+            min-width: 50px;
+            background-color: #282c34;
+        }
+
+        .message-board-content-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+
+            .message-board-content {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+
+                .message-board {
+                    flex: 1;
+                }
+
+                .message-input {
+                    height: 85px;
+                    padding: 0 20px; 
+                    margin-bottom: 24px;
+    
+                    input {
+                        flex: 1 1 auto;
+                        width: 100%;
+                        height: 100%;
+                        border: 1px black solid;
+                    }
+                }
+            }
+        }
+    }
+}
+
+  
