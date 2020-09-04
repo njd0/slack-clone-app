@@ -7,6 +7,7 @@ import {
 
 import Home from './home';
 import Register from './register';
+import Login from './login';
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
       </Switch>
     </BrowserRouter>
   );

@@ -11,13 +11,21 @@ export type MessageBoard = {
   viewers: string[],
 }
 
-export interface RegisterUser {
+export interface RegisterResponse {
   register: {
     user: {
       id: number;
       username: string,
       email: string,
     }
+    errors?: Error[],
+  }
+}
+
+export interface LoginResponse {
+  login: {
+    token: string,
+    refreshToken: string,
     errors?: Error[],
   }
 }

@@ -3,17 +3,29 @@ import { Container, Header, Form, Input, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 
 import { REGISTER_MUTATION } from "../graphql/mutations";
-import { RegisterUser, User, RegistrationErrors } from '../types';
+import { RegisterResponse, User, RegistrationErrors } from '../types';
 
 const Register = (props: any) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<RegistrationErrors>({});
-
-  const [registerUser, registerResponse] = useMutation<RegisterUser, User>(REGISTER_MUTATION, {
-    variables: { username, email, password }
+  const [user, setUser] = useState<User>({
+    username: '',
+    email: '',
+    password: '',
   });
+
+  const [registerUser, registerResponse] = useMutation<RegisterResponse, User>(REGISTER_MUTATION, {
+    variables: { username: user.username, email: user.email, password: user.password }
+  });
+
+  const onChange = (event : React.FormEvent<HTMLSelectElement>) => {
+    const { name, value } = event.currentTarget;
+    setUser((currentUser) => {
+      return {
+        ...currentUser,
+        [name]: value,
+      };
+    });
+  }
 
   const onSubmit = async () => {
     const response = await registerUser();
@@ -41,7 +53,7 @@ const Register = (props: any) => {
             control={Input}
             label='Username'
             name='username'
-            onChange={(e: React.FormEvent<HTMLSelectElement>) => setUsername(e.currentTarget.value)}
+            onChange={onChange}
             required={true}
             error={errors['username']}
           />
@@ -49,7 +61,7 @@ const Register = (props: any) => {
             control={Input}
             label='Email'
             name='email'
-            onChange={(e: React.FormEvent<HTMLSelectElement>) => setEmail(e.currentTarget.value)}
+            onChange={onChange}
             required={true}
             error={errors['email']}
           />
@@ -58,7 +70,7 @@ const Register = (props: any) => {
             label='Password'
             type='password'
             name='password'
-            onChange={(e: React.FormEvent<HTMLSelectElement>) => setPassword(e.currentTarget.value)}
+            onChange={onChange}
             required={true}
             error={errors['password']}
           />
@@ -66,8 +78,6 @@ const Register = (props: any) => {
             control={Button}
             content='Sign Up'
             onClick={onSubmit}
-            disabled={!username.length || !email.length || !password.length}
-            align='center'
           />
         </Form>
     </Container>
