@@ -36,11 +36,12 @@ const Login = (props: any) => {
     try {
       const response = await loginUser();
       const { token, refreshToken, errors } = response.data?.login!;
+      localStorage.setItem('token', token);
+      localStorage.setItem('refreshToken', refreshToken);
+      props.history.push('/');
     } catch (err) {
       setError(err.message);
     }
-
-    props.history.push('/');
   }
 
   const renderError = () => {
